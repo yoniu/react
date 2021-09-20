@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="app"></div>
+  
+  <script type="text/javascript" src="./react.development.js"></script>
+  <script type="text/javascript" src="./react-dom.development.js"></script>
+  <script type="text/javascript" src="./babel.min.js"></script>
+  <script type="text/babel">
+    class Form extends React.Component{
+
+      state = {
+        username: '',
+        password: ''
+      }
+
+      getForm = (event) => {
+        event.preventDefault();
+        const { username, password } = this.state;
+        alert(`Your username is ${username}, and your password is ${password}`);
+      }
+
+      setFormDate = (dataType, event) => {
+        this.setState({ [dataType]: event.target.value });
+      }
+
+      render() {
+        return (
+          <form onSubmit={ this.getForm }>
+            Username: <input name="username" type="text" onChange={ event => this.setFormDate('username', event) } /><br />
+            Password: <input name="password" type="password" onChange={ event => this.setFormDate('password', event) } /><br />
+            <button>submit</button>
+          </form>
+        )
+      }
+    }
+
+    ReactDOM.render(<Form />, document.getElementById('app'));
+  </script>
+</body>
+</html>
