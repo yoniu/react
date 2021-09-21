@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div id="app"></div>
+  
+  <script type="text/javascript" src="./react.development.js"></script>
+  <script type="text/javascript" src="./react-dom.development.js"></script>
+  <script type="text/javascript" src="./babel.min.js"></script>
+  <script type="text/babel">
+    class Count extends React.Component{
+
+      state = {
+        count: 0
+      }
+
+      add = () => {
+        let { count } = this.state;
+        count++;
+        this.setState({count});
+      }
+
+      death = () => {
+        ReactDOM.unmountComponentAtNode(document.getElementById('app'));
+      }
+
+      UNSAFE_componentWillMount() {
+        // 不安全的生命周期之后会被删除
+        console.log('lifecycle --- UNSAFE_componentWillMount');
+      }
+      componentDidMount() {
+        console.log('lifecycle --- componentDidMount');
+      }
+      shouldComponentUpdate(){
+        console.log('lifecycle --- shouldComponentUpdate');
+        return true;
+      }
+      componentWillUnmount() {
+        console.log('lifecycle --- componentWillUnmount');
+      }
+
+
+      render() {
+        console.log('lifecycle --- render');
+        const { count } = this.state;
+        return (
+          <div>
+            <h2>Current number is: { count }</h2>
+            <button onClick={ this.add }>add 1</button>
+            <button onClick={ this.death }>Uninstall Component</button>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Count />, document.getElementById('app'));
+  </script>
+</body>
+</html>
